@@ -1,7 +1,7 @@
-table, th, td{
-    border: 1px solid black;
+div {
+    float: left;
 }
-td:hover {
+div:hover {
    cursor: pointer;
    background-color: lightgray 
 }
