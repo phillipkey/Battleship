@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { PlayerComponent } from './player/player.component';
+import { ShipService } from './ship.service';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { PlayerComponent } from './player/player.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [ShipService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
