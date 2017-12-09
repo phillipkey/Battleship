@@ -22,6 +22,8 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     //randomly place a ship.
+    //will need to make sure ship has space.
+    //"ship" component needs to be created and imported here
   }
 
   onClick() {
