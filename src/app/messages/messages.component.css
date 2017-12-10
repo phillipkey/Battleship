@@ -37,5 +37,5 @@
       .messageList {
         overflow: scroll;
         width: 50%;
-        max-height: 350px;
+        max-height: 250px;
       }
