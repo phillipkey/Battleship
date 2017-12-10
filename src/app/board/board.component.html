@@ -1,6 +1,8 @@
-<div *ngFor="let cell of gameboard"
-    [class.shown]="cell.isChecked"
-    (click)="onClick(cell)">
-    <span *ngIf="cell.isChecked">[{{cell.value}}] </span>
-    <span *ngIf="!cell.isChecked">[  ]</span>
+<div class="column">
+    <div *ngFor="let cell of gameboard"
+        class="gameSquare"
+        (click)="onClick(cell)">
+        <span *ngIf="cell.isChecked">[{{cell.value}}] </span>
+        <span *ngIf="!cell.isChecked">[  ]</span>
+    </div>
 </div>

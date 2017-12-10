@@ -1,7 +1,13 @@
-div {
+.column {
     float: left;
+    width: 50%;
 }
-div:hover {
+.gameSquare {
+    float: left;
+    width: 10%;
+    column-count: 10;
+}
+.gameSquare:hover {
    cursor: pointer;
    background-color: lightgray 
 }
