@@ -33,7 +33,9 @@
         color: #888;
         margin-bottom: 12px;
       }
-      .scrollableDiv {
-          overflow-y: scroll;
-          max-height: 400px;
+
+      .messageList {
+        overflow: scroll;
+        width: 50%;
+        max-height: 350px;
       }
