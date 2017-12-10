@@ -3,7 +3,7 @@ export class Cell {
     isChecked: boolean;
     xPos: number;
     yPos; number;
-    shipId: number;
+    shipId: number; 
     constructor(x: number, y: number, value: string) {
         this.xPos = x;
         this.yPos = y;
