@@ -1,9 +1,40 @@
+<div style="text-align:center">
+    <span>{{ gameService.turnMessage }}</span>
+</div>
 <div class="column">
-    <h2>Player Name</h2>
-    <div *ngFor="let cell of gameboard"
+    <div>
+        <input [(ngModel)]="player1Name" placeholder="name"/>
+    </div>
+    <div *ngFor="let cell of gameService.player1Gameboard.grid"
         class="gameSquare"
-        (click)="onClick(cell)">
-        <span *ngIf="cell.isChecked">[{{cell.value}}] </span>
-        <span *ngIf="!cell.isChecked">[  ]</span>
+        [class.disabled]="gameService.turn != 0"
+        [class.highlight]="cell.highlight"
+        (click)="gameService.turn === 0 && !gameService.isSetup ? playerFire(cell) : null"
+        (click)="gameService.turn === 0 && gameService.isSetup ? placeShip(cell) : null">
+        <span *ngIf="cell.isChecked || (gameService.turn == 0 && gameService.isSetup)">[{{cell.value}}] </span>
+        <span *ngIf="!cell.isChecked && !gameService.isSetup">[  ]</span>
+    </div>
+    <div class="shipList">
+        <div *ngFor="let ship of gameService.player1Ships">
+            <span>{{ship.name}}</span>
+        </div>
     </div>
 </div>
+<div class="column">
+        <div>
+            <input [(ngModel)]="player2Name" placeholder="name"/>
+        </div>
+        <div *ngFor="let cell of gameService.player2Gameboard.grid"
+            class="gameSquare"
+            [class.disabled]="currentPlayer"
+            (click)="currentPlayer ? null : playerFire(cell)">
+            <!-- (click)="!currentPlayer && gameService.isSetup ? null : placeShip(cell)"-->
+            <span *ngIf="cell.isChecked">[{{cell.value}}] </span>
+            <span *ngIf="!cell.isChecked">[  ]</span>
+        </div>
+        <div class="shipList">
+            <div *ngFor="let ship of gameService.player2Ships">
+                <span>{{ship.name}}</span>
+            </div>
+        </div>
+    </div>
