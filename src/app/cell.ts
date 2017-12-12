@@ -18,39 +18,24 @@ export class Cell {
         this.highlight = false;
     }
 
-    validStartPoint(ship: Ship): boolean {
+    isEmpty(): boolean {
         return this.value == "O";
     }
   
     validEndPoint(ship: Ship): boolean {
-        //must be empty
+        console.log("check valid end point");
       if (this.value != "O")
         return false;
       var position = ship.position[0];
-      //must be in same row or column;
-      if (position[0] != this.xPos && position[1] != this.yPos)
+      if (position[0] != this.xPos && position[1] != this.yPos) {
+        console.log("not in same row or column.Position: " + position + " x: " + this.xPos + " y: " + this.yPos );
         return false;
-      //must have the correct number of spaces to match the length of ship
+      }
       if (this.xPos != position[0] - ship.totalHealth - 1  && this.xPos != position[0] + ship.totalHealth - 1
           && this.yPos != position[1] - ship.totalHealth - 1 && this.yPos != position[1] + ship.totalHealth - 1) {
+            console.log("incorrect length. position: " + position + " cell: " + this.xPos + "," + this.yPos);
             return false;
       }
-      //must be clear between start and end point
-      if (!this.validRange(ship)){
-          return false;
-      }
       return true;
-    }
-
-    private validRange(ship: Ship): boolean {
-        var shipStartX = ship.position[0][0];
-        var shipStartY = ship.position[0][1];
-        if (shipStartX == this.xPos) {
-            //check y range for empty values
-        } else {
-            // check x range for empty values;
-        }
-        console.log(this.xPos+ "," + this.yPos);
-        return true;
     }
 }
