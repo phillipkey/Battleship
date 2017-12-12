@@ -25,20 +25,22 @@ export class BoardComponent implements OnInit {
 
   placeShip(cell:Cell): void {
     var ship = this.gameService.currentShipToPlace;
-    console.log("attempting to place ship");
+    console.log("attempting to place: " + ship.name);
     if (cell.value != "O") {
       this.gameService.turnMessage = "There is already a ship here. Please select a valid location.";
       return;
     }
     console.log('place a ship');
-    if (this.gameService.startPlacement && cell.validStartPoint(ship)) {
+    if (this.gameService.startPlacement && cell.isEmpty()) {
       ship.position.push([cell.xPos, cell.yPos]);
+      console.log("Original Ship Position: " + ship.position[0]);
       cell.highlight;
       this.gameService.startPlacement = false;
       this.gameService.turnMessage = "Select the end point for your " + ship.name;
     } else {
       if (cell.validEndPoint(ship)) {
-        if (this.gameService.placeShip(ship)) {
+        console.log("board.component.ts place " + ship.name+ " at :" + cell.xPos + "," + cell.yPos);
+        if (this.gameService.placeShip(ship, cell)) {
           ship.position.push([cell.xPos, cell.yPos]);
           this.gameService.turnMessage = "SHIP PLACED!"
         } else {

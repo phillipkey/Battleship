@@ -8,17 +8,48 @@ export class PlayerGrid {
         this.grid = [];
     }
 
-    validRange(endPoint: number[], cell: Cell): boolean {
-        var x = endPoint[0];
-        var y = endPoint[1];
-        if (x == cell.xPos) {
-            this.grid.find(temp => cell.xPos == x && temp.yPos > cell.yPos && temp.yPos < y).for
-            // get cells between [x, cell.ypos] and [x, y]
-            // check each for value != "O", return false if found
+    setValues(ship:Ship) {
+        ship.position.forEach(point => {
+            var tempCell = this.grid.find(cell => cell.xPos == point[0] && cell.yPos == point[1]);
+            tempCell.value = ship.symbol;
+        })
+    }
+
+    validRange(ship: Ship, cell: Cell): boolean {
+        console.log("cell: " + cell.xPos + "," + cell.yPos);
+        console.log("ship: " + ship.position[0][0] + "," + ship.position[0][1]);
+        var startX = Math.min(ship.position[0][0], cell.xPos);
+        var startY = Math.min(ship.position[0][1], cell.yPos);
+        var endX = Math.max(ship.position[0][0], cell.xPos);
+        var endY = Math.max(ship.position[0][1], cell.yPos);
+        ship.position = [];
+        if (startX == endX) {
+            //TODO: look for more efficient way of finding range.
+            for (var y = startY; y <= endY; y++) {
+                var tempCell = this.grid.find(temp => temp.xPos == startX && temp.yPos == y);
+                console.log("Checking valid placement in cell: " + tempCell.xPos + "," + tempCell.yPos);
+                if (!tempCell.isEmpty()) {
+                    alert("collision with ship placement.");
+                    console.log("The range is not empty.");
+                    return false;
+                } else {
+                    ship.position.push([startX, y]);
+                }
+            }
         } else {
-            // get cells between [cell.xpos, y] and [x, y]
-            // check each for value != "O", return false if found
+            for (var x = startX; x <= endX; x++) {
+                var tempCell = this.grid.find(temp => temp.yPos == startY && temp.xPos == x);
+                console.log("Checking valid placement in cell: " + tempCell.xPos + "," + tempCell.yPos);                
+                if (!tempCell.isEmpty()) {
+                    alert("collision with ship placement.");
+                    console.log("The range is not empty.");
+                    return false;
+                } else {
+                    ship.position.push([x, startY]);
+                }     
+            }
         }
+        console.log("the range is clear and ready to place.");
         return true;
     }
 }

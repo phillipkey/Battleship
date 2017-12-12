@@ -12,7 +12,7 @@
         (click)="gameService.turn === 0 && !gameService.isSetup ? playerFire(cell) : null"
         (click)="gameService.turn === 0 && gameService.isSetup ? placeShip(cell) : null">
         <span *ngIf="cell.isChecked || (gameService.turn == 0 && gameService.isSetup)">[{{cell.value}}] </span>
-        <span *ngIf="!cell.isChecked && !gameService.isSetup">[  ]</span>
+        <span *ngIf="!cell.isChecked && !gameService.isSetup || (gameService.isSetup && gameService.turn != 0)">[  ]</span>
     </div>
     <div class="shipList">
         <div *ngFor="let ship of gameService.player1Ships">
@@ -26,12 +26,12 @@
         </div>
         <div *ngFor="let cell of gameService.player2Gameboard.grid"
             class="gameSquare"
-            [class.disabled]="currentPlayer"
-            (click)="currentPlayer ? null : playerFire(cell)">
-            <!-- (click)="!currentPlayer && gameService.isSetup ? null : placeShip(cell)"-->
-            <span *ngIf="cell.isChecked">[{{cell.value}}] </span>
-            <span *ngIf="!cell.isChecked">[  ]</span>
-        </div>
+            [class.disabled]="gameService.turn != 1"
+            (click)="gameService.turn === 1 && !gameService.isSetup ? playerFire(cell) : null"
+            (click)="gameService.turn === 1 && gameService.isSetup ? placeShip(cell) : null">
+            <span *ngIf="cell.isChecked || (gameService.turn == 1 && gameService.isSetup)">[{{cell.value}}] </span>
+            <span *ngIf="!cell.isChecked && !gameService.isSetup || (gameService.isSetup && gameService.turn != 1)">[  ]</span>
+            </div>
         <div class="shipList">
             <div *ngFor="let ship of gameService.player2Ships">
                 <span>{{ship.name}}</span>
