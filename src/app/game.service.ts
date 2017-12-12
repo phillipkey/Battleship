@@ -30,6 +30,7 @@ export class GameService {
   shipsToPlace: Ship[];
 
   currentShipToPlace: Ship;
+  shipIndex = 0;
   constructor() { 
     this.setupPlayerGrids(); //create empty grids.
     this.setShipsToPlace(); //use function to populate list of ships to place.
@@ -81,15 +82,38 @@ export class GameService {
     return this.player1Ships.length == 0 || this.player2Ships.length == 0;
   }
 
-  placeShip(ship: Ship): boolean {
+  placeShip(ship: Ship, cell: Cell): boolean {
     if (this.turn == 0) {
-      if (!this.addShipToBoard(ship, this.player1Gameboard.grid))
+      if (!this.addShipToBoard(ship, this.player1Gameboard, cell))
         return false;
       this.player1Ships.push(ship);
+      this.shipIndex++;
+      if (this.shipIndex < this.shipsToPlace.length) {
+        this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
+        this.turnMessage = "Now Placing: " + this.currentShipToPlace.name;
+        this.startPlacement = true;
+      } else {
+        this.setShipsToPlace();
+        this.shipIndex = 0;
+        this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
+        this.startPlacement = true;
+        this.turn = 1;
+      }
     } else {
-      if (!this.addShipToBoard(ship, this.player2Gameboard.grid))
+      console.log("place ship for player 2");
+      if (!this.addShipToBoard(ship, this.player2Gameboard, cell))
         return false;
       this.player2Ships.push(ship);
+      this.shipIndex++;
+      if (this.shipIndex < this.shipsToPlace.length) {
+        this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
+        this.turnMessage = "Now Placing: " + this.currentShipToPlace.name;
+        this.startPlacement = true;
+      } else {
+        this.shipIndex = 0;
+        this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
+        this.isSetup = false;
+      }
     }
     return true;
   }
@@ -102,20 +126,13 @@ export class GameService {
     }
   }
 
-  private addShipToBoard(ship: Ship, gameboard: Cell[]): boolean {
-    var updatedCells = [];
-    ship.position.forEach(point => {
-      var cell = gameboard.find(gameboardCell => gameboardCell.xPos == point[0]
-        && gameboardCell.yPos == point[1]);
-        if (cell.value != "O") {
-          this.resetCells(updatedCells)
-          return false;
-        }
-        cell.shipId = ship.id;
-        cell.value = ship.symbol;
-        updatedCells.push(cell);
-    });
-    return true;
+  private addShipToBoard(ship: Ship, gameboard: PlayerGrid, cell:Cell): boolean {
+    console.log("game.service adding "+ ship.name +" to board at " + cell.xPos + "," + cell.yPos);
+    if (gameboard.validRange(ship, cell)) {
+      gameboard.setValues(ship);
+      return true;
+    }
+    return false;
   }
 
   //this function will reset cells in case there is a conflict as a way to preserve 
