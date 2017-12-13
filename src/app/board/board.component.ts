@@ -27,27 +27,27 @@ export class BoardComponent implements OnInit {
     var ship = this.gameService.currentShipToPlace;
     console.log("attempting to place: " + ship.name);
     if (cell.value != "O") {
-      this.gameService.turnMessage = "There is already a ship here. Please select a valid location.";
+      this.messageService.add("There is already a ship here. Please select a valid location.");
       return;
     }
     console.log('place a ship');
     if (this.gameService.startPlacement && cell.isEmpty()) {
       ship.position.push([cell.xPos, cell.yPos]);
       console.log("Original Ship Position: " + ship.position[0]);
-      cell.highlight;
+      cell.highlight = true;
       this.gameService.startPlacement = false;
-      this.gameService.turnMessage = "Select the end point for your " + ship.name;
+      this.messageService.add("Select the end point for your " + ship.name);
     } else {
       if (cell.validEndPoint(ship)) {
         console.log("board.component.ts place " + ship.name+ " at :" + cell.xPos + "," + cell.yPos);
         if (this.gameService.placeShip(ship, cell)) {
           ship.position.push([cell.xPos, cell.yPos]);
-          this.gameService.turnMessage = "SHIP PLACED!"
+          this.messageService.add("Ship Placed");
         } else {
-          this.gameService.turnMessage = "Obstruction!"
+          this.messageService.add("There is already a ship here. Please select a valid location.");
         }
       } else {
-        this.gameService.turnMessage = "Not a valid ship placement"
+        this.messageService.add("The range for the ship is not valid. Please select a valid location.");
       }
     }
   }
@@ -59,15 +59,16 @@ export class BoardComponent implements OnInit {
     } else {
       cell.isChecked = true;
       if (this.gameService.turn == 0) {
-        if (!this.isHit(cell, this.gameService.player1Ships)) {
-          this.messageService.add("*SPLASH* Miss!")
-        }
-      } else {
         if (!this.isHit(cell, this.gameService.player2Ships)) {
           this.messageService.add("*SPLASH* Miss!")
         }
+      } else {
+        if (!this.isHit(cell, this.gameService.player1Ships)) {
+          this.messageService.add("*SPLASH* HIT!")
+        }
       }
       this.gameService.changeTurn();
+      this.gameService.turnMessage = (this.gameService.turn == 0 ? "Player 1, " : "Player 2, ") + "place your shot."
     }
   }
 
@@ -77,7 +78,6 @@ export class BoardComponent implements OnInit {
       var ship = ships.find(ship => ship.id === cell.shipId);
       ship.hit();
       if (ship.isSunk()) {
-        console.log('ship sunk');
         this.messageService.add("You destroyed their " + ship.name + "!");
         ships.splice(ships.indexOf(ship), 1);
       } else {
@@ -85,7 +85,8 @@ export class BoardComponent implements OnInit {
       }
       if (this.gameService.isGameOver()) {
         console.log('game over, reset board');
-        this.messageService.add("YOU WIN!");
+        alert((this.gameService.turn == 0 ? "Player 1" : "Player 2") + " Wins!");
+        location.reload();
       }
       return true;
     } else {
