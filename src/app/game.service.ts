@@ -90,14 +90,15 @@ export class GameService {
       this.shipIndex++;
       if (this.shipIndex < this.shipsToPlace.length) {
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
-        this.turnMessage = "Now Placing: " + this.currentShipToPlace.name;
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name;
         this.startPlacement = true;
       } else {
         this.setShipsToPlace();
         this.shipIndex = 0;
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
         this.startPlacement = true;
-        this.turn = 1;
+        this.changeTurn();
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name;        
       }
     } else {
       console.log("place ship for player 2");
@@ -114,6 +115,7 @@ export class GameService {
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
         this.isSetup = false;
         this.changeTurn();
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your shot.";        
       }
     }
     return true;
