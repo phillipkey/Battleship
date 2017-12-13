@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit {
-  isSetupMode: boolean = true; //flag for set up mode
   constructor() { }
 
   ngOnInit() {
+  }
+
+  resetGame() {
+    location.reload();
   }
 
 }
