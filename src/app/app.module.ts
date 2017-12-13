@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { PlayerComponent } from './player/player.component';
 import { ShipService } from './ship.service';
-import { MessagesComponent } from './messages/messages.component';
+import { MessageComponent } from './message/message.component';
 import { MessageService } from './message.service';
 import { GameComponent } from './game/game.component';
 import { GameService } from './game.service';
@@ -17,7 +17,7 @@ import { GameService } from './game.service';
     AppComponent,
     BoardComponent,
     PlayerComponent,
-    MessagesComponent,
+    MessageComponent,
     GameComponent
   ],
   imports: [
