@@ -145,7 +145,7 @@ export class GameService {
 
   private setShipsToPlace() {
     this.shipsToPlace = [
-      new Ship(1, "Aircraft Carrier", 5, "C", []),
+      new Ship(1, "Aircraft Carrier", 5, "A", []),
       new Ship(2, "Battleship", 4, "B", []),
       new Ship(3, "Cruiser", 3, "C", []),
       new Ship(4, "Submarine", 3, "S", []),
