@@ -31,9 +31,14 @@ export class Cell {
         console.log("not in same row or column.Position: " + position + " x: " + this.xPos + " y: " + this.yPos );
         return false;
       }
-      if (this.xPos != position[0] - ship.totalHealth - 1  && this.xPos != position[0] + ship.totalHealth - 1
-          && this.yPos != position[1] - ship.totalHealth - 1 && this.yPos != position[1] + ship.totalHealth - 1) {
-            console.log("incorrect length. position: " + position + " cell: " + this.xPos + "," + this.yPos);
+      var startX = Math.min(ship.position[0][0], this.xPos);
+      var startY = Math.min(ship.position[0][1], this.yPos);
+      var endX = Math.max(ship.position[0][0], this.xPos);
+      var endY = Math.max(ship.position[0][1], this.yPos);
+      console.log(startX + " " + endX + " " + startY + " " + endY);
+      if (startX != endX - (ship.totalHealth - 1) && startX != endX + (ship.totalHealth - 1)
+          && startY != endY - (ship.totalHealth - 1) && startY != endY + (ship.totalHealth - 1)) {
+            console.log("incorrect length. start: " + startX + "," + startY + " end: " + endX + "," + endY);
             return false;
       }
       return true;
