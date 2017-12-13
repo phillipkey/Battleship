@@ -12,6 +12,8 @@ export class PlayerGrid {
         ship.position.forEach(point => {
             var tempCell = this.grid.find(cell => cell.xPos == point[0] && cell.yPos == point[1]);
             tempCell.value = ship.symbol;
+            tempCell.shipId = ship.id;
+            tempCell.highlight = true;
         })
     }
 
@@ -29,7 +31,6 @@ export class PlayerGrid {
                 var tempCell = this.grid.find(temp => temp.xPos == startX && temp.yPos == y);
                 console.log("Checking valid placement in cell: " + tempCell.xPos + "," + tempCell.yPos);
                 if (!tempCell.isEmpty()) {
-                    alert("collision with ship placement.");
                     console.log("The range is not empty.");
                     return false;
                 } else {
@@ -41,7 +42,6 @@ export class PlayerGrid {
                 var tempCell = this.grid.find(temp => temp.yPos == startY && temp.xPos == x);
                 console.log("Checking valid placement in cell: " + tempCell.xPos + "," + tempCell.yPos);                
                 if (!tempCell.isEmpty()) {
-                    alert("collision with ship placement.");
                     console.log("The range is not empty.");
                     return false;
                 } else {
