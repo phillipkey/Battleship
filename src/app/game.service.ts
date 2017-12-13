@@ -47,7 +47,7 @@ export class GameService {
       }
     }
     console.log('player 1 grid built!');
-    console.log('adding ships to grid 1...');
+    //console.log('adding ships to grid 1...');
     // this.player1Ships.forEach(ship => {
     //   ship.position.forEach(point => {
     //     var shipCell = this.player1Gameboard.find(gameboardCell => gameboardCell.xPos == point[0] 
@@ -56,7 +56,7 @@ export class GameService {
     //       shipCell.shipId = ship.id;
     //   });
     // });
-    console.log('ships added to grid 1!');
+    //console.log('ships added to grid 1!');
 
     console.log('building grid for player 2...');
     for (var i = 1; i <= rows; i++){
@@ -65,7 +65,7 @@ export class GameService {
       }
     }
     console.log('player 2 grid built!'); 
-    console.log('adding ships to grid 2...');     
+    //console.log('adding ships to grid 2...');     
     // this.player2Ships.forEach(ship => {
     //   ship.position.forEach(point => {
     //     var shipCell = this.player2Gameboard.find(gameboardCell => gameboardCell.xPos == point[0] 
@@ -74,7 +74,7 @@ export class GameService {
     //       shipCell.shipId = ship.id;
     //   });
     // });
-    console.log('ships added to grid 2!');
+    //console.log('ships added to grid 2!');
     console.log('ready to play!');
   }
 
@@ -113,6 +113,7 @@ export class GameService {
         this.shipIndex = 0;
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
         this.isSetup = false;
+        this.changeTurn();
       }
     }
     return true;
