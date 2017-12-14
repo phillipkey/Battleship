@@ -26,7 +26,7 @@ export class GameService {
     // new Ship(4, "Submarine", 3, "S",  [ [4,9], [5,9], [6,9] ]  ),
     // new Ship(5, "Destroyer", 2, "D",  [ [5,3], [6,3] ])
   ]
-  turnMessage = "Player 1, place your Carrier. (5)" 
+  turnMessage = "Player 1, place your USS Costco. (5)" 
 
   shipsToPlace: Ship[];
 
@@ -149,11 +149,11 @@ export class GameService {
 
   private setShipsToPlace() {
     this.shipsToPlace = [
-      new Ship(1, "Aircraft Carrier", 5, "A", []),
-      new Ship(2, "Battleship", 4, "B", []),
-      new Ship(3, "Cruiser", 3, "C", []),
-      new Ship(4, "Submarine", 3, "S", []),
-      new Ship(5, "Destroyer", 2, "D", [])
+      new Ship(1, "USS Costco", 5, "A", []),
+      new Ship(2, "HMS Publix", 4, "B", []),
+      new Ship(3, "USS Kroger", 3, "C", []),
+      new Ship(4, "HMSm Western", 3, "S", []),
+      new Ship(5, "USNV ABC Fine Wine and Spirits", 2, "D", [])
     ]
   }
 }
