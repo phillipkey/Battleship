@@ -8,6 +8,7 @@ import { createUrlResolverWithoutPackagePrefix } from '@angular/compiler';
 export class GameService {
   turn = 0; //turn = 0 is player 1, turn = 1 is player 2;
   isSetup: boolean = true; //begin the game in setup mode.
+  gameEnded: boolean = false;
   startPlacement: boolean = true;
   player1Gameboard: PlayerGrid = new PlayerGrid();
   player2Gameboard: PlayerGrid = new PlayerGrid();
@@ -25,7 +26,7 @@ export class GameService {
     // new Ship(4, "Submarine", 3, "S",  [ [4,9], [5,9], [6,9] ]  ),
     // new Ship(5, "Destroyer", 2, "D",  [ [5,3], [6,3] ])
   ]
-  turnMessage = "Player 1, place your Carrier." 
+  turnMessage = "Player 1, place your Carrier. (5)" 
 
   shipsToPlace: Ship[];
 
@@ -90,7 +91,7 @@ export class GameService {
       this.shipIndex++;
       if (this.shipIndex < this.shipsToPlace.length) {
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
-        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name;
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name + " (" + this.currentShipToPlace.totalHealth + ")";
         this.startPlacement = true;
       } else {
         this.setShipsToPlace();
@@ -98,7 +99,7 @@ export class GameService {
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
         this.startPlacement = true;
         this.changeTurn();
-        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name;        
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name + " (" + this.currentShipToPlace.totalHealth + ")";;        
       }
     } else {
       console.log("place ship for player 2");
@@ -108,7 +109,7 @@ export class GameService {
       this.shipIndex++;
       if (this.shipIndex < this.shipsToPlace.length) {
         this.currentShipToPlace = this.shipsToPlace[this.shipIndex];
-        this.turnMessage = "Now Placing: " + this.currentShipToPlace.name;
+        this.turnMessage = (this.turn == 0 ? "Player 1, " : "Player 2, ") + "place your " + this.currentShipToPlace.name + " (" + this.currentShipToPlace.totalHealth + ")";
         this.startPlacement = true;
       } else {
         this.shipIndex = 0;
