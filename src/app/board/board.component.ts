@@ -23,6 +23,18 @@ export class BoardComponent implements OnInit {
     console.log("Setup: " + this.gameService.isSetup);
   }
 
+  cancelPlacement(): void {
+    var cell: Cell;
+    if(this.gameService.turn == 0) {
+      cell = this.gameService.player1Gameboard.findCell(this.gameService.currentShipToPlace.position[0]);
+    } else {
+      cell = this.gameService.player2Gameboard.findCell(this.gameService.currentShipToPlace.position[0]);      
+    }
+    cell.highlight = false;
+    this.gameService.currentShipToPlace.position = [];
+    this.gameService.startPlacement = true;
+  }
+
   placeShip(cell:Cell): void {
     var ship = this.gameService.currentShipToPlace;
     console.log("attempting to place: " + ship.name);
@@ -53,6 +65,8 @@ export class BoardComponent implements OnInit {
   }
 
   playerFire(cell: Cell): void {
+    if (this.gameService.gameEnded)
+      return;
     console.log('cell was clicked');
     if (cell.isChecked) {
       this.messageService.add("This cell has already been checked!")
@@ -64,11 +78,16 @@ export class BoardComponent implements OnInit {
         }
       } else {
         if (!this.isHit(cell, this.gameService.player1Ships)) {
-          this.messageService.add("*SPLASH* HIT!")
+          this.messageService.add("*SPLASH* Miss!")
         }
       }
       this.gameService.changeTurn();
-      this.gameService.turnMessage = (this.gameService.turn == 0 ? "Player 1, " : "Player 2, ") + "place your shot."
+      if (this.gameService.gameEnded) {
+        this.gameService.turnMessage = "Game Over. Thanks for playing!";
+      }
+      else {
+        this.gameService.turnMessage = (this.gameService.turn == 0 ? "Player 1, " : "Player 2, ") + "place your shot."
+      } 
     }
   }
 
@@ -85,8 +104,8 @@ export class BoardComponent implements OnInit {
       }
       if (this.gameService.isGameOver()) {
         console.log('game over, reset board');
-        alert((this.gameService.turn == 0 ? "Player 1" : "Player 2") + " Wins!");
-        location.reload();
+        this.gameService.gameEnded = true;
+        this.messageService.add((this.gameService.turn == 0 ? "Player 1" : "Player 2") + " Wins!");
       }
       return true;
     } else {
