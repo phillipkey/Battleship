@@ -8,10 +8,14 @@ export class PlayerGrid {
         this.grid = [];
     }
 
+    findCell(position: number[]): Cell {
+        return this.grid.find(cell => cell.xPos == position[0] && cell.yPos == position[1]);
+    }
+
     setValues(ship:Ship) {
         ship.position.forEach(point => {
             var tempCell = this.grid.find(cell => cell.xPos == point[0] && cell.yPos == point[1]);
-            tempCell.value = ship.symbol;
+            tempCell.value = "X";
             tempCell.shipId = ship.id;
             tempCell.highlight = true;
         })
