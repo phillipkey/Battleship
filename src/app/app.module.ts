@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
-import { PlayerComponent } from './player/player.component';
 import { ShipService } from './ship.service';
 import { MessageComponent } from './message/message.component';
 import { MessageService } from './message.service';
@@ -16,13 +15,16 @@ import { GameService } from './game.service';
   declarations: [
     AppComponent,
     BoardComponent,
-    PlayerComponent,
     MessageComponent,
     GameComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppComponent,
+    BoardComponent,
+    MessageComponent,
+    GameComponent
   ],
   providers: [ShipService, MessageService, GameService],
   bootstrap: [AppComponent]
