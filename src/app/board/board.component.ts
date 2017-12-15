@@ -5,8 +5,8 @@ import { PlayerGrid } from '../playerGrid'
 import { SHIPSET1 } from '../mock-ships';
 import { ShipService } from '../ship.service';
 import { MessageService } from '../message.service';
-import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 import { GameService } from '../game.service';
+import { isDefaultChangeDetectionStrategy } from '@angular/core/src/change_detection/constants';
 
 @Component({
   selector: 'app-board',
