@@ -20,11 +20,7 @@ import { GameService } from './game.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    AppComponent,
-    BoardComponent,
-    MessageComponent,
-    GameComponent
+    FormsModule
   ],
   providers: [ShipService, MessageService, GameService],
   bootstrap: [AppComponent]
