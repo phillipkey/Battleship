@@ -97,7 +97,7 @@ export class BoardComponent implements OnInit {
       var ship = ships.find(ship => ship.id === cell.shipId);
       ship.hit();
       if (ship.isSunk()) {
-        this.messageService.add("You destroyed their " + ship.name + "!");
+        this.messageService.add((this.gameService.turn == 0 ? "Player 1" : "Player 2") + " destroyed the " + ship.name + "!");
         ships.splice(ships.indexOf(ship), 1);
       } else {
         this.messageService.add("*BOOM* You hit something!")
