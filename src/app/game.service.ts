@@ -12,29 +12,17 @@ export class GameService {
   startPlacement: boolean = true;
   player1Gameboard: PlayerGrid = new PlayerGrid();
   player2Gameboard: PlayerGrid = new PlayerGrid();
-  player1Ships: Ship[] = [
-    // new Ship(1, "Aircraft Carrier", 5, "A",  [[3,2], [3,3], [3,4], [3,5], [3,6] ] ),
-    // new Ship(2, "Battleship", 4, "B",  [ [6,5], [7,5], [8,5], [9,5] ] ),
-    // new Ship(3, "Cruiser", 3, "C",  [ [1,2], [1,3], [1,4] ] ),
-    // new Ship(4, "Submarine", 3, "S",  [ [4,9], [5,9], [6,9] ]  ),
-    // new Ship(5, "Destroyer", 2, "D",  [ [5,3], [6,3] ])
-  ]
-  player2Ships: Ship[] = [
-    // new Ship(1, "Aircraft Carrier", 5, "A",  [[3,2], [3,3], [3,4], [3,5], [3,6] ] ),
-    // new Ship(2, "Battleship", 4, "B",  [ [6,5], [7,5], [8,5], [9,5] ] ),
-    // new Ship(3, "Cruiser", 3, "C",  [ [1,2], [1,3], [1,4] ] ),
-    // new Ship(4, "Submarine", 3, "S",  [ [4,9], [5,9], [6,9] ]  ),
-    // new Ship(5, "Destroyer", 2, "D",  [ [5,3], [6,3] ])
-  ]
+  player1Ships: Ship[] = [];
+  player2Ships: Ship[] = [];
   turnMessage = "Player 1, place your USS Costco. (5)" 
 
   shipsToPlace: Ship[];
-
   currentShipToPlace: Ship;
   shipIndex = 0;
+  
   constructor() { 
-    this.setupPlayerGrids(); //create empty grids.
-    this.setShipsToPlace(); //use function to populate list of ships to place.
+    this.setupPlayerGrids();
+    this.setShipsToPlace();
     this.currentShipToPlace = this.shipsToPlace[0];
   }
 
@@ -48,16 +36,6 @@ export class GameService {
       }
     }
     console.log('player 1 grid built!');
-    //console.log('adding ships to grid 1...');
-    // this.player1Ships.forEach(ship => {
-    //   ship.position.forEach(point => {
-    //     var shipCell = this.player1Gameboard.find(gameboardCell => gameboardCell.xPos == point[0] 
-    //       && gameboardCell.yPos == point[1]);
-    //       shipCell.value = ship.symbol;
-    //       shipCell.shipId = ship.id;
-    //   });
-    // });
-    //console.log('ships added to grid 1!');
 
     console.log('building grid for player 2...');
     for (var i = 1; i <= rows; i++){
@@ -66,16 +44,6 @@ export class GameService {
       }
     }
     console.log('player 2 grid built!'); 
-    //console.log('adding ships to grid 2...');     
-    // this.player2Ships.forEach(ship => {
-    //   ship.position.forEach(point => {
-    //     var shipCell = this.player2Gameboard.find(gameboardCell => gameboardCell.xPos == point[0] 
-    //       && gameboardCell.yPos == point[1]);
-    //       shipCell.value = ship.symbol;
-    //       shipCell.shipId = ship.id;
-    //   });
-    // });
-    //console.log('ships added to grid 2!');
     console.log('ready to play!');
   }
 
@@ -139,7 +107,6 @@ export class GameService {
     return false;
   }
 
-  //this function will reset cells in case there is a conflict as a way to preserve 
   private resetCells(cells) {
     for (var i = 0; i < cells.length; i++) {
       cells[i].shipId = -1;

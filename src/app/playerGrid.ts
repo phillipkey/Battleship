@@ -30,7 +30,6 @@ export class PlayerGrid {
         var endY = Math.max(ship.position[0][1], cell.yPos);
         ship.position = [];
         if (startX == endX) {
-            //TODO: look for more efficient way of finding range.
             for (var y = startY; y <= endY; y++) {
                 var tempCell = this.grid.find(temp => temp.xPos == startX && temp.yPos == y);
                 console.log("Checking valid placement in cell: " + tempCell.xPos + "," + tempCell.yPos);
