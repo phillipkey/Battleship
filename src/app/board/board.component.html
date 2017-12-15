@@ -2,9 +2,9 @@
     <span>{{ gameService.turnMessage }}</span>
 </div>
 <div class="column">
-    <div>
+    <div class="playerName">
         <span>Player 1</span>
-        <button *ngIf="gameService.turn === 0 && gameService.isSetup && !this.gameService.startPlacement" (click)="cancelPlacement()">Cancel</button>
+        <button *ngIf="gameService.turn === 0 && gameService.isSetup && !this.gameService.startPlacement" (click)="cancelPlacement()" class="cancelPlacement">Cancel</button>
     </div>
     <div *ngFor="let cell of gameService.player1Gameboard.grid"
         class="gameSquare"
@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="column">
-        <div>
+        <div class="playerName">
             <span>Player 2</span>
             <button *ngIf="gameService.turn === 1 && gameService.isSetup && !this.gameService.startPlacement" (click)="cancelPlacement()">Cancel</button>
             

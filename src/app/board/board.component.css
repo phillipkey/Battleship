@@ -3,7 +3,18 @@
     display: block;
     width: 48%;
     padding: 5px 5px;
+    margin: 0px 0px 0px 15px
 }
+
+.playerName {
+    margin: 5px 5px 5px 5px;
+}
+
+.playerName button {
+    position: absolute;
+    margin: 3px 3px 0px 5px;
+}
+
 .gameSquare {
     background-color: #1AE2FF;
     border: 1px solid black;
@@ -25,6 +36,7 @@
 .highlight {
     background-color: yellow;
 }
+
 .gameSquare:hover {
    cursor: pointer;
    background-color: rgba(211, 211, 211, 0.774);
